@@ -32,7 +32,9 @@ const Dropdown = () => {
         setNhlTeams(data.teams);
       });
   };
-
+  const sortedTeams = [...nhlTeams].sort((a, b) => {
+    return a.name > b.name ? 1 : -1;
+  });
   return (
     <Center>
       <Flex justify="space-between" w="100%" p={4}>
@@ -54,7 +56,7 @@ const Dropdown = () => {
                 {isOpen ? "Close Menu" : "All Teams"}
               </MenuButton>
               <MenuList>
-                {nhlTeams.map((team, index) => {
+                {sortedTeams.sort().map((team, index) => {
                   return <MenuItem key={index}>{team.name}</MenuItem>;
                 })}
               </MenuList>
