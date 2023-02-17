@@ -7,14 +7,19 @@ const endpoint = "https://statsapi.web.nhl.com/api/v1/teams";
 function App() {
   const [nhlTeams, setNhlTeams] = useState();
 
-  async function getData() {
+  // function getData() {
+  //   axios.get(endpoint).then((response) => setNhlTeams(response.data));
+  // }
+
+  const getData = async () => {
     try {
-      const result = await axios.get(endpoint);
-      setNhlTeams(result.data);
+      const response = await axios.get(endpoint);
+      const data = await response?.data;
+      setNhlTeams(data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getData();
@@ -22,7 +27,17 @@ function App() {
 
   console.log(nhlTeams);
 
-  return <></>;
+  return (
+    <div>
+      {nhlTeams.map((team) => {
+        return (
+          <ul>
+            <li>{team.name}</li>
+          </ul>
+        );
+      })}
+    </div>
+  );
 }
 
 export default App;
