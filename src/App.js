@@ -1,7 +1,10 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import HomePage from "./pages/HomePage";
+import TeamsStats from "./components/TeamsStats";
 
 function App() {
   return (
@@ -9,9 +12,8 @@ function App() {
       <div>
         <Navbar />
       </div>
-      {/* <div>
-        <TeamsList />
-      </div> */}
+      <TeamsStats />
+      <HomePage />
     </ChakraProvider>
   );
 }
