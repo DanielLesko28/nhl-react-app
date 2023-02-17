@@ -56,7 +56,7 @@ const Dropdown = () => {
                 {isOpen ? "Close Menu" : "All Teams"}
               </MenuButton>
               <MenuList>
-                {sortedTeams.sort().map((team, index) => {
+                {sortedTeams.map((team, index) => {
                   return <MenuItem key={index}>{team.name}</MenuItem>;
                 })}
               </MenuList>
