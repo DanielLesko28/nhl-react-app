@@ -41,7 +41,7 @@ const TeamsStats = () => {
         <Heading>Here is ID of every Team</Heading>
         {data.map((team, index) => {
           return (
-            <Box>
+            <Box key={team.id}>
               <p>{team.id}</p>
             </Box>
           );
