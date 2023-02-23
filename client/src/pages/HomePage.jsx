@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <div>
       <Center>
-        <Heading>Nothing yet to display</Heading>
+        <Heading>here will go some fetch data</Heading>
       </Center>
     </div>
   );

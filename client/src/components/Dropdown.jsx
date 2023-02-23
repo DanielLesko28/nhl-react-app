@@ -1,5 +1,6 @@
 import "../App.css";
 import { useState, useEffect } from "react";
+// import { gql, useQuery } from "@apollo/client";
 
 import {
   Menu,
@@ -13,22 +14,44 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-
-const endpoint = "https://statsapi.web.nhl.com/api/v1/teams";
+import { Link } from "react-router-dom";
+import { teamsEndpoint } from "../utilities/constants/index";
+// import { getTeams } from "../api/getTeams";
 
 const Dropdown = () => {
   const [nhlTeams, setNhlTeams] = useState([]);
 
+  // const { data } = useQuery(
+  //   gql`
+  //     query AllTeams($id: Int) {
+  //       allTeams(id: $id) {
+  //         teamName
+  //         abbreviation
+  //         firstYearOfPlay
+  //         id
+  //       }
+  //     }
+  //   `,
+  //   {
+  //     variables: {
+  //       id: 4,
+  //     },
+  //   }
+  // );
+
+  // const teamsArray = data.allTeams;
+
+  // console.log("here are data", teamsArray);
+
   useEffect(() => {
+    // getTeams().then((response) => console.log("this is here", response));
     fetchData();
   }, []);
 
   console.log(nhlTeams);
   const fetchData = () => {
-    fetch(endpoint)
-      .then((response) => {
-        return response.json();
-      })
+    fetch(teamsEndpoint + "teams")
+      .then((response) => response.json())
       .then((data) => {
         setNhlTeams(data.teams);
       });
@@ -39,7 +62,9 @@ const Dropdown = () => {
   return (
     <Center>
       <Flex justify="space-between" w="100%" p={4}>
-        <Heading color="white">NHL</Heading>
+        <Link to="/">
+          <Heading color="white">NHL</Heading>
+        </Link>
         <Menu>
           {({ isOpen }) => (
             <>
@@ -57,8 +82,15 @@ const Dropdown = () => {
                 {isOpen ? "Close Menu" : "All Teams"}
               </MenuButton>
               <MenuList>
-                {sortedTeams.map((team, index) => {
-                  return <MenuItem key={index}>{team.name}</MenuItem>;
+                {sortedTeams.map((team) => {
+                  const { name, abbreviation, id } = team;
+                  return (
+                    <MenuItem key={id}>
+                      <Link to={`/teams/${id}/stats`}>
+                        {name} ({abbreviation})
+                      </Link>
+                    </MenuItem>
+                  );
                 })}
               </MenuList>
             </>

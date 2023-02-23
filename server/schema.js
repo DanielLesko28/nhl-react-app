@@ -3,14 +3,16 @@ import gql from "graphql-tag";
 export const typeDefs = gql`
   type Team {
     id: String!
-    name: String!
+    teamName: String!
     firstYearOfPlay: String!
     abbreviation: String!
-    division: [Division!]
+    division: Division!
   }
 
   type Division {
     name: String!
+    nameShort: String!
+    id: String!
   }
 
   type AllTeams {
@@ -22,7 +24,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    allTeams: AllTeams!
+    allTeams(id: Int): [Team!]
     standings: Standings!
     categories: [String!]
   }

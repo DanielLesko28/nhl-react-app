@@ -6,7 +6,7 @@ import { typeDefs } from "./schema.js";
 import { resolvers } from "./resolvers.js";
 
 class NhlTeamsAPI extends RESTDataSource {
-  baseURL = "https://statsapi.web.nhl.com/api/v1/";
+  baseURL = "http://statsapi.web.nhl.com/api/v1/";
 
   async getTeams() {
     return await this.get("teams");
