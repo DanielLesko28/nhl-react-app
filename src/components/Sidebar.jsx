@@ -40,7 +40,7 @@ const Sidebar = () => {
         {isOpen
           ? sortedTeams.map((team, index) => {
               return (
-                <Text p="2" key={index}>
+                <Text p="2" color="white" key={index}>
                   {team.name}
                 </Text>
               );

@@ -9,22 +9,11 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
 
-function ModalWindow({ btnName, text, url }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const finalRef = React.useRef(null);
-
+function ModalWindow({ isOpen, onClose, btnName, text, url }) {
   return (
     <>
-      {/* <Box ref={finalRef} tabIndex={-1} aria-label="Focus moved to this box">
-        Some other content that'll receive focus on close.
-      </Box> */}
-
-      <Button mt={4} onClick={onOpen}>
-        {btnName}
-      </Button>
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+      <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Title</ModalHeader>
