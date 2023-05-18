@@ -2,9 +2,10 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 
 import { ChakraProvider } from "@chakra-ui/react";
-import HomePage from "./pages/HomePage";
-import TeamsStats from "./components/TeamsStats";
-import StandingsPage from "./pages/StandingsPage";
+import Sidebar from "./components/Sidebar";
+// import HomePage from "./pages/HomePage";
+// import TeamsStats from "./components/TeamsStats";
+// import StandingsPage from "./pages/StandingsPage";
 
 function App() {
   return (
@@ -12,9 +13,7 @@ function App() {
       <div>
         <Navbar />
       </div>
-      <StandingsPage />
-      <TeamsStats />
-      <HomePage />
+      <Sidebar />
     </ChakraProvider>
   );
 }
