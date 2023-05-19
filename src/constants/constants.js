@@ -2,8 +2,7 @@ export const menuStyle = {
   position: "fixed",
   top: 0,
   left: 0,
-  width: "300px",
-  height: "100vh",
+  width: "200px",
   backgroundColor: "#fff",
   zIndex: 10,
   transition: "transform 0.3s ease-in",
@@ -24,8 +23,10 @@ export const headingStyle = {
 export const listStyle = {
   display: "flex",
   flexDirection: "column",
-  padding: "16px",
+  padding: "0 1.5rem 0 1.5rem",
   color: "#333",
+  maxHeight: "calc(100vh)",
+  overflowY: "auto",
 };
 
 export const itemStyle = {
@@ -38,3 +39,5 @@ export const itemStyle = {
 export const iconStyle = {
   marginRight: "8px",
 };
+
+export const endpoint = "https://statsapi.web.nhl.com/api/v1/teams";

@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { TbTruckDelivery } from "react-icons/tb";
-import { MdFavorite, MdHelp } from "react-icons/md";
-import { FaWallet, FaUserFriends } from "react-icons/fa";
-import { BsFillSaveFill } from "react-icons/bs";
+
 import {
   menuStyle,
   closeButtonStyle,
@@ -11,9 +8,34 @@ import {
   listStyle,
   itemStyle,
   iconStyle,
+  endpoint,
 } from "../constants/constants";
 
 const HamburgerMenu = ({ onClose, sideMenu }) => {
+  const [nhlTeams, setNhlTeams] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    fetch(endpoint)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setNhlTeams(data.teams);
+      });
+  };
+  const sortedTeams = [...nhlTeams].sort((a, b) => {
+    return a.name > b.name ? 1 : -1;
+  });
+
+  console.log(
+    "nhlTeams",
+    sortedTeams.length > 0 ? sortedTeams.map((team) => team.name) : "no data"
+  );
+
   return (
     <div style={menuStyle}>
       <AiOutlineClose onClick={onClose} size={30} style={closeButtonStyle} />
@@ -22,31 +44,8 @@ const HamburgerMenu = ({ onClose, sideMenu }) => {
       </h2>
       <nav>
         <ul style={listStyle}>
-          <li style={itemStyle}>
-            <TbTruckDelivery size={25} style={iconStyle} />
-            Orders
-          </li>
-          <li style={itemStyle}>
-            <MdFavorite size={25} style={iconStyle} />
-            Favorites
-          </li>
-          <li style={itemStyle}>
-            <FaWallet size={25} style={iconStyle} />
-            Wallet
-          </li>
-          <li style={itemStyle}>
-            <MdHelp size={25} style={iconStyle} />
-            Help
-          </li>
-          <li style={itemStyle}>Promotions</li>
-          <li style={itemStyle}>
-            <BsFillSaveFill size={25} style={iconStyle} />
-            Best Ones
-          </li>
-          <li style={itemStyle}>
-            <FaUserFriends size={25} style={iconStyle} />
-            Invite Friends
-          </li>
+          {nhlTeams.length > 0 &&
+            sortedTeams.map((team) => <li style={itemStyle}>{team.name}</li>)}
         </ul>
       </nav>
     </div>
