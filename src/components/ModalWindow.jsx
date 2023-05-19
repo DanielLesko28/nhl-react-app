@@ -16,7 +16,7 @@ function ModalWindow({ isOpen, onClose, btnName, text, url }) {
       <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Title</ModalHeader>
+          <ModalHeader>Here You can find informations about You</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <a href={url}>{text}</a>
