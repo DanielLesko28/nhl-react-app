@@ -23,7 +23,7 @@ export const headingStyle = {
 export const listStyle = {
   display: "flex",
   flexDirection: "column",
-  padding: "0 1.5rem 0 1.5rem",
+  padding: "1rem 0.5rem 1rem 0.5rem",
   color: "#333",
   maxHeight: "calc(100vh)",
   overflowY: "auto",

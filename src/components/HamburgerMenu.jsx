@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 import {
   menuStyle,
   closeButtonStyle,
   headingStyle,
   listStyle,
-  itemStyle,
-  iconStyle,
   endpoint,
 } from "../constants/constants";
 
@@ -45,7 +45,13 @@ const HamburgerMenu = ({ onClose, sideMenu }) => {
       <nav>
         <ul style={listStyle}>
           {nhlTeams.length > 0 &&
-            sortedTeams.map((team) => <li style={itemStyle}>{team.name}</li>)}
+            sortedTeams.map((team, index) => (
+              <Link to={`/${team.id}`} key={index} onClick={onClose}>
+                <Text p="2" color="black">
+                  {team.name}
+                </Text>
+              </Link>
+            ))}
         </ul>
       </nav>
     </div>

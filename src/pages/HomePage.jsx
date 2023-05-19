@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <div>
       <Center>
-        <Heading>Nothing yet to display</Heading>
+        <Heading>This is the HOMEPAGE</Heading>
       </Center>
     </div>
   );
