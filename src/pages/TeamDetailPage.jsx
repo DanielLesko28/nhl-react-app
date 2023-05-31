@@ -1,40 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Center } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import { NHLContext } from "../context/TeamsContext";
 
 const TeamDetailPage = () => {
   const { id } = useParams();
+  const { teams } = useContext(NHLContext);
 
-  const fetchTeam = async () => {
-    const response = await fetch(
-      `https://statsapi.web.nhl.com/api/v1/teams/${id}`
-    );
-    const data = await response.json();
-    return data.teams;
-  };
+  const team = teams.find((team) => team.id === parseInt(id));
 
-  const {
-    data: singleTeam,
-    isLoading,
-    isError,
-  } = useQuery(["shit", id], fetchTeam);
+  console.log("team", team);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (!team) {
+    return <div>Loading...</div>; // You can show a loading state if the team data is not available in the context yet
   }
-
-  if (isError) {
-    return <div>Error fetching team data</div>;
-  }
-
-  console.log("query data", singleTeam);
 
   return (
     <div style={{ width: "100%" }}>
       <Center>
-        {singleTeam &&
-          singleTeam.map((team) => <h1 key={team.id}>This is {team.name}</h1>)}
+        <h1>This is the team {team.name}</h1>
       </Center>
     </div>
   );

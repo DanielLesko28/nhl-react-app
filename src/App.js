@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import TeamDetailPage from "./pages/TeamDetailPage";
 import HomePage from "./pages/HomePage";
 import { NHLProvider } from "./context/TeamsContext";
+import { NhlStandingsProvider } from "./context/StandingsContext";
 
 const queryClient = new QueryClient();
 
@@ -16,17 +17,19 @@ function App() {
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
         <NHLProvider>
-          <BrowserRouter>
-            <div>
-              <Navbar />
-            </div>
-            <Flex>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path={"/:id"} element={<TeamDetailPage />} />
-              </Routes>
-            </Flex>
-          </BrowserRouter>
+          <NhlStandingsProvider>
+            <BrowserRouter>
+              <div>
+                <Navbar />
+              </div>
+              <Flex>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path={"/:id"} element={<TeamDetailPage />} />
+                </Routes>
+              </Flex>
+            </BrowserRouter>
+          </NhlStandingsProvider>
         </NHLProvider>
       </QueryClientProvider>
     </ChakraProvider>

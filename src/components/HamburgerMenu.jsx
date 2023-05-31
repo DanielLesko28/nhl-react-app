@@ -31,11 +31,6 @@ const HamburgerMenu = ({ onClose, sideMenu }) => {
     return a.name > b.name ? 1 : -1;
   });
 
-  console.log(
-    "nhlTeams",
-    sortedTeams.length > 0 ? sortedTeams.map((team) => team.name) : "no data"
-  );
-
   return (
     <div style={menuStyle}>
       <AiOutlineClose onClick={onClose} size={30} style={closeButtonStyle} />

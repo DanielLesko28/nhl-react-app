@@ -4,14 +4,11 @@ import {
   Thead,
   Tbody,
   Tr,
-  Th,
   Td,
   TableCaption,
   TableContainer,
-  Box,
-  Tooltip,
 } from "@chakra-ui/react";
-import { BsInfoCircle } from "react-icons/bs";
+
 import TableHead from "./TableHead";
 
 const TeamsTable = ({ data }) => {
@@ -24,47 +21,12 @@ const TeamsTable = ({ data }) => {
           </TableCaption>
           <Thead style={{ backgroundColor: "DodgerBlue" }}>
             <Tr>
-              <TableHead tableHeadName="Team" />
-              <Th style={{ color: "white" }} width="5%">
-                <Box display="flex" alignItems="center">
-                  GP{" "}
-                  <Tooltip label="Games Played" placement="bottom">
-                    <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-                  </Tooltip>
-                </Box>
-              </Th>
-              <Th style={{ color: "white" }} width="5%" placement="bottom">
-                <Box display="flex" alignItems="center">
-                  W{" "}
-                  <Tooltip label="Wins" placement="bottom">
-                    <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-                  </Tooltip>
-                </Box>
-              </Th>
-              <Th style={{ color: "white" }} width="5%">
-                <Box display="flex" alignItems="center">
-                  L{" "}
-                  <Tooltip label="Losses" placement="bottom">
-                    <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-                  </Tooltip>
-                </Box>
-              </Th>
-              <Th style={{ color: "white" }} width="5%">
-                <Box display="flex" alignItems="center">
-                  OT{" "}
-                  <Tooltip label="Overtime" placement="bottom">
-                    <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-                  </Tooltip>
-                </Box>
-              </Th>
-              <Th style={{ color: "white" }} width="5%">
-                <Box display="flex" alignItems="center">
-                  PTS{" "}
-                  <Tooltip label="Points" placement="bottom">
-                    <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-                  </Tooltip>
-                </Box>
-              </Th>
+              <TableHead tableHeadName="Team" tableHeadTooltip="" />
+              <TableHead tableHeadName="GP" tableHeadTooltip="Games Played" />
+              <TableHead tableHeadName="W" tableHeadTooltip="Wins" />
+              <TableHead tableHeadName="L" tableHeadTooltip="Losses" />
+              <TableHead tableHeadName="OT" tableHeadTooltip="Overtime" />
+              <TableHead tableHeadName="PTS" tableHeadTooltip="Points" />
             </Tr>
           </Thead>
           <Tbody>

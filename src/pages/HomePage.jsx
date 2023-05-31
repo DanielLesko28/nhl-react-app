@@ -31,12 +31,14 @@ const HomePage = () => {
   }
 
   const teamRecords = standings.map((team) => team.teamRecords);
+  const [newTeamRecords] = teamRecords;
+  const teamLinks = newTeamRecords.map((team) => team.officialSiteUrl);
 
-  // console.log("teamRecords", teamRecords[0]);
+  console.log("teamLinks", teamLinks);
 
   return (
     <Box w="100%" m={2}>
-      <TeamsTable data={teamRecords[0]} />
+      <TeamsTable data={newTeamRecords} />
     </Box>
   );
 };

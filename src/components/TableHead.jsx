@@ -8,9 +8,11 @@ const TableHead = ({ tableHeadName, tableHeadTooltip }) => {
       <Th style={{ color: "white" }} width="5%">
         <Box display="flex" alignItems="center">
           {tableHeadName}{" "}
-          <Tooltip label={tableHeadTooltip} placement="bottom">
-            <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
-          </Tooltip>
+          {tableHeadTooltip !== "" && (
+            <Tooltip label={tableHeadTooltip} placement="bottom">
+              <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
+            </Tooltip>
+          )}
         </Box>
       </Th>
     </>
