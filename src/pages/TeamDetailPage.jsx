@@ -1,33 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { Center } from "@chakra-ui/react";
+import { useQuery } from "react-query";
 
 const TeamDetailPage = () => {
   const { id } = useParams();
-  const [singleTeam, setSingleTeam] = useState([]);
 
-  const endpoint = `https://statsapi.web.nhl.com/api/v1/teams/${id}`;
-
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endpoint]);
-
-  const fetchData = () => {
-    fetch(endpoint)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setSingleTeam(data.teams);
-      });
+  const fetchTeam = async () => {
+    const response = await fetch(
+      `https://statsapi.web.nhl.com/api/v1/teams/${id}`
+    );
+    const data = await response.json();
+    return data.teams;
   };
 
-  console.log("singleTeam", singleTeam);
+  const {
+    data: singleTeam,
+    isLoading,
+    isError,
+  } = useQuery(["shit", id], fetchTeam);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching team data</div>;
+  }
+
+  console.log("query data", singleTeam);
+
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Center>
-        {singleTeam && singleTeam.map((team) => <h1>{team.name}</h1>)}
+        {singleTeam &&
+          singleTeam.map((team) => <h1 key={team.id}>This is {team.name}</h1>)}
       </Center>
     </div>
   );

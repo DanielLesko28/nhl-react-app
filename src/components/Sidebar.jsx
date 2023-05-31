@@ -34,6 +34,7 @@ const Sidebar = () => {
       left={isOpen ? "50" : "0"}
       w={isOpen ? "250px" : "100px"}
       bg="blue.400"
+      transition="left 0.3s, width 0.3s"
       onClick={() => setIsOpen(!isOpen)}
     >
       <Flex direction="column">
