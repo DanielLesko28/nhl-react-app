@@ -1,22 +1,18 @@
-import React from "react";
-import { useQuery } from "react-query";
+import React, { useContext } from "react";
 import { Box, Center } from "@chakra-ui/react";
 import TeamsTable from "../components/Table";
-
-const endpoint = "https://statsapi.web.nhl.com/api/v1/standings/byLeague";
-
-const fetchStandings = async () => {
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  return data.records;
-};
+import { NhlStandingsContext } from "../context/StandingsContext";
+import { NHLContext } from "../context/TeamsContext";
 
 const HomePage = () => {
-  const {
-    data: standings,
-    isLoading,
-    isError,
-  } = useQuery("standings", fetchStandings);
+  const { standings, isLoading, isError } = useContext(NhlStandingsContext);
+  const { teams } = useContext(NHLContext);
+
+  console.log("teams", teams);
+
+  const [newStandings] = standings;
+
+  // console.log("newStandings", newStandings.teamRecords);
 
   if (isLoading) {
     return (
@@ -30,15 +26,9 @@ const HomePage = () => {
     return <div>Error occurred while fetching standings.</div>;
   }
 
-  const teamRecords = standings.map((team) => team.teamRecords);
-  const [newTeamRecords] = teamRecords;
-  const teamLinks = newTeamRecords.map((team) => team.officialSiteUrl);
-
-  console.log("teamLinks", teamLinks);
-
   return (
     <Box w="100%" m={2}>
-      <TeamsTable data={newTeamRecords} />
+      <TeamsTable data={newStandings.teamRecords} />
     </Box>
   );
 };

@@ -12,15 +12,9 @@ export const NHLProvider = ({ children }) => {
 
   const { data: teams, isLoading, isError } = useQuery("teams", fetchTeams);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error fetching teams data</div>;
-  }
-
   return (
-    <NHLContext.Provider value={{ teams }}>{children}</NHLContext.Provider>
+    <NHLContext.Provider value={{ teams, isLoading, isError }}>
+      {children}
+    </NHLContext.Provider>
   );
 };
