@@ -10,7 +10,7 @@ const TableHead = ({ tableHeadName, tableHeadTooltip }) => {
           {tableHeadName}{" "}
           {tableHeadTooltip !== "" && (
             <Tooltip label={tableHeadTooltip} placement="bottom">
-              <BsInfoCircle style={{ marginLeft: "0.2rem" }} />
+              <BsInfoCircle style={{ marginLeft: "0.3rem" }} />
             </Tooltip>
           )}
         </Box>

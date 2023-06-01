@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { Box, Center } from "@chakra-ui/react";
 import TeamsTable from "../components/Table";
 import { NhlStandingsContext } from "../context/StandingsContext";
-import { NHLContext } from "../context/TeamsContext";
+// import { NHLContext } from "../context/TeamsContext";
 
 const HomePage = () => {
   const { standings, isLoading, isError } = useContext(NhlStandingsContext);
-  const { teams } = useContext(NHLContext);
+  // const { teams } = useContext(NHLContext);
 
-  console.log("teams", teams);
+  // console.log("standings", standings);
 
   const [newStandings] = standings;
 
@@ -28,7 +28,9 @@ const HomePage = () => {
 
   return (
     <Box w="100%" m={2}>
-      <TeamsTable data={newStandings.teamRecords} />
+      {standings !== undefined && (
+        <TeamsTable data={newStandings.teamRecords} />
+      )}
     </Box>
   );
 };
