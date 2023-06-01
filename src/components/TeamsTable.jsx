@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Td,
-  TableCaption,
-  TableContainer,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
 
 import TableHead from "./TableHead";
 
@@ -16,9 +8,6 @@ const TeamsTable = ({ data }) => {
     <div>
       <TableContainer style={{ border: "1px solid black" }}>
         <Table variant="simple">
-          <TableCaption>
-            I don't know yet if I want something to write here
-          </TableCaption>
           <Thead style={{ backgroundColor: "DodgerBlue" }}>
             <Tr>
               <TableHead tableHeadName="Team" tableHeadTooltip="" />

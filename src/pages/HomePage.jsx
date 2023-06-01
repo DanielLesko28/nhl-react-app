@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Box, Center } from "@chakra-ui/react";
-import TeamsTable from "../components/Table";
+import TeamsTable from "../components/TeamsTable";
 import { NhlStandingsContext } from "../context/StandingsContext";
 import { NHLContext } from "../context/TeamsContext";
 
