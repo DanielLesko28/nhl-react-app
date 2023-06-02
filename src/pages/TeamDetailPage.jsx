@@ -25,9 +25,6 @@ const TeamDetailPage = () => {
     isError,
   } = useQuery(["roster", id], fetchRoster);
 
-  // console.log("team", team);
-  // console.log("roster", roster);
-
   const goalies =
     roster && roster.filter((player) => player.position.name === "Goalie");
   const defensemen =
@@ -69,10 +66,6 @@ const TeamDetailPage = () => {
           Their venue is located in {team.venue.city} and is called{" "}
           {team.venue.name}
         </h1>
-        {/* <h1>Roster:</h1>
-        {roster.map((player) => (
-          <p key={player.person.id}>{player.person.fullName}</p>
-        ))} */}
 
         <RostersTable positionHeader="Goalies" data={goalies} />
         <RostersTable
