@@ -26,7 +26,7 @@ const TeamDetailPage = () => {
   } = useQuery(["roster", id], fetchRoster);
 
   // console.log("team", team);
-  console.log("roster", roster);
+  // console.log("roster", roster);
 
   const goalies =
     roster && roster.filter((player) => player.position.name === "Goalie");

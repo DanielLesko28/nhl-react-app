@@ -9,6 +9,7 @@ import TeamDetailPage from "./pages/TeamDetailPage";
 import HomePage from "./pages/HomePage";
 import { NHLProvider } from "./context/TeamsContext";
 import { NhlStandingsProvider } from "./context/StandingsContext";
+import PlayerDetailPage from "./pages/PlayerDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path={"/:id"} element={<TeamDetailPage />} />
+                  <Route path={"/people/:id"} element={<PlayerDetailPage />} />
                 </Routes>
               </Flex>
             </BrowserRouter>

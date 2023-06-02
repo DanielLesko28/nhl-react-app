@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Thead, Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
 import TableHead from "./TableHead";
+import { Link } from "react-router-dom";
 
 const RostersTable = ({ positionHeader, data }) => {
   return (
@@ -22,8 +23,15 @@ const RostersTable = ({ positionHeader, data }) => {
           {data.map((player) => {
             return (
               <Tr key={player.person.id}>
-                <Td>
-                  {player.person.fullName}
+                <Td
+                  onClick={() => {
+                    console.log("player info", player.person.id);
+                    console.log("player info", player.person.fullName);
+                  }}
+                >
+                  <Link to={`/people/${player.person.id}`}>
+                    {player.person.fullName}
+                  </Link>
                   {"        "} {player.jerseyNumber}
                 </Td>
               </Tr>
