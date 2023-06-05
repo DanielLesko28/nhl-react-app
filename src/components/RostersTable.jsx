@@ -32,7 +32,7 @@ const RostersTable = ({ positionHeader, data }) => {
                   <Link to={`/people/${player.person.id}`}>
                     {player.person.fullName}
                   </Link>
-                  {"        "} {player.jerseyNumber}
+                  {"        "} #{player.jerseyNumber}
                 </Td>
               </Tr>
             );
