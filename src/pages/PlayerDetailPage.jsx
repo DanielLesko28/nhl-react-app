@@ -2,29 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-
-const fetchPlayerDetails = async (id) => {
-  const response = await fetch(
-    `https://statsapi.web.nhl.com/api/v1/people/${id}`
-  );
-  if (!response.ok) {
-    throw new Error("Error fetching player details");
-  }
-  const data = await response.json();
-  return data.people[0];
-};
-
-const fetchPlayerStats = async (id) => {
-  const response = await fetch(
-    `https://statsapi.web.nhl.com/api/v1/people/${id}/stats?stats=statsSingleSeason`
-  );
-  if (!response.ok) {
-    throw new Error("Error fetching player stats");
-  }
-  const data = await response.json();
-  console.log("playerStatsData", data);
-  return data;
-};
+import { fetchPlayerStats, fetchPlayerDetails } from "../constants/functions";
 
 const PlayerDetailPage = () => {
   const { id } = useParams();
@@ -55,7 +33,7 @@ const PlayerDetailPage = () => {
   //   const splits = stats?.[0]?.splits;
   //   const stat = splits?.[0]?.stat;
 
-  console.log("player", player);
+  console.log("playerStats", playerStats?.stats?.[0]?.splits?.[0]?.stat);
 
   return (
     <Box

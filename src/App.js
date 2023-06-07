@@ -10,6 +10,8 @@ import HomePage from "./pages/HomePage";
 import { NHLProvider } from "./context/TeamsContext";
 import { NhlStandingsProvider } from "./context/StandingsContext";
 import PlayerDetailPage from "./pages/PlayerDetailPage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +27,9 @@ function App() {
               </div>
               <Flex>
                 <Routes>
-                  <Route path="/" element={<HomePage />} />
+                  <Route path="/" element={<SignupPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/home" element={<HomePage />} />
                   <Route path={"/:id"} element={<TeamDetailPage />} />
                   <Route path={"/people/:id"} element={<PlayerDetailPage />} />
                 </Routes>

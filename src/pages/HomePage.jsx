@@ -8,8 +8,8 @@ const HomePage = () => {
   const { standings, isLoading, isError } = useContext(NhlStandingsContext);
   const { teams } = useContext(NHLContext);
 
-  console.log("standings", standings);
-  console.log("teams", teams);
+  // console.log("standings", standings);
+  // console.log("teams", teams);
 
   if (isLoading) {
     return (
