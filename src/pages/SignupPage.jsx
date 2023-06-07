@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import { Box, Button, Heading, Input, Text } from "@chakra-ui/react";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -29,48 +30,63 @@ const SignupPage = () => {
   };
 
   return (
-    <main>
-      <section>
-        <div>
-          <div>
-            <h1> FocusApp </h1>
-            <form>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  type="email"
-                  label="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="Email address"
-                />
-              </div>
+    <Box w="100%" display="flex" justifyContent="center">
+      <Box
+        borderRadius="md"
+        w="20rem"
+        border="1px solid black"
+        m={5}
+        p={8}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Heading mb={4}> NHL App </Heading>
+        <form
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
+          <Input
+            w="100%"
+            p={5}
+            my={2}
+            type="email"
+            label="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Email address"
+          />
 
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  label="Create password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Password"
-                />
-              </div>
+          <Input
+            p={5}
+            my={2}
+            type="password"
+            label="Create password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Password"
+          />
 
-              <button type="submit" onClick={onSubmit}>
-                Sign up
-              </button>
-            </form>
+          <Button
+            width="80%"
+            alignSelf="center"
+            my={4}
+            type="submit"
+            onClick={onSubmit}
+            backgroundColor="blue.400"
+            color="white"
+            _hover={{ backgroundColor: "blue.300" }}
+          >
+            Sign up
+          </Button>
+        </form>
 
-            <p>
-              Already have an account? <NavLink to="/login">Sign in</NavLink>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+        <Text>
+          Already have an account? <NavLink to="/login">Sign in</NavLink>
+        </Text>
+      </Box>
+    </Box>
   );
 };
 

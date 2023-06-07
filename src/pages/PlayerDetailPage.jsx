@@ -3,6 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { fetchPlayerStats, fetchPlayerDetails } from "../constants/functions";
+import PlayerStatsTable from "../components/PlayerStatsTable";
 
 const PlayerDetailPage = () => {
   const { id } = useParams();
@@ -29,11 +30,13 @@ const PlayerDetailPage = () => {
 
   const birthDate = new Date(player.birthDate).toLocaleDateString();
 
+  const playerStatistics = playerStats?.stats?.[0]?.splits?.[0]?.stat;
+
   //   const stats = playerStats?.stats;
   //   const splits = stats?.[0]?.splits;
   //   const stat = splits?.[0]?.stat;
 
-  console.log("playerStats", playerStats?.stats?.[0]?.splits?.[0]?.stat);
+  console.log("playerStatistics", playerStatistics);
 
   return (
     <Box
@@ -55,6 +58,9 @@ const PlayerDetailPage = () => {
       </p>
       <p>His height is {player.height}</p>
       <p>His weight is {player.weight} pounds</p>
+      {playerStatistics !== undefined && (
+        <PlayerStatsTable data={playerStatistics} />
+      )}
     </Box>
   );
 };
