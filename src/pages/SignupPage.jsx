@@ -1,33 +1,28 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import { Box, Button, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Input, Text, useRadio } from "@chakra-ui/react";
+import { UserAuth } from "../context/AuthContext";
 
 const SignupPage = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { createUser } = UserAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-      });
+    setError("");
+    try {
+      await createUser(email, password);
+      navigate("/home");
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
+    }
   };
+
+  console.log("UserAuth", UserAuth);
 
   return (
     <Box w="100%" display="flex" justifyContent="center">
@@ -43,6 +38,7 @@ const SignupPage = () => {
       >
         <Heading mb={4}> NHL App </Heading>
         <form
+          onSubmit={handleSubmit}
           style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Input
@@ -73,7 +69,7 @@ const SignupPage = () => {
             alignSelf="center"
             my={4}
             type="submit"
-            onClick={onSubmit}
+            // onClick={onSubmit}
             backgroundColor="blue.400"
             color="white"
             _hover={{ backgroundColor: "blue.300" }}
@@ -83,7 +79,13 @@ const SignupPage = () => {
         </form>
 
         <Text>
-          Already have an account? <NavLink to="/login">Sign in</NavLink>
+          Already have an account?{" "}
+          <NavLink
+            to="/login"
+            style={{ textDecoration: "underline", color: "blue" }}
+          >
+            Log in
+          </NavLink>
         </Text>
       </Box>
     </Box>

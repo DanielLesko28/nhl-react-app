@@ -3,10 +3,15 @@ import { Box, Center } from "@chakra-ui/react";
 import TeamsTable from "../components/TeamsTable";
 import { NhlStandingsContext } from "../context/StandingsContext";
 import { NHLContext } from "../context/TeamsContext";
+import { UserAuth } from "../context/AuthContext";
 
 const HomePage = () => {
   const { standings, isLoading, isError } = useContext(NhlStandingsContext);
   const { teams } = useContext(NHLContext);
+
+  const { user } = UserAuth();
+
+  console.log("User in HomePage when signed up", user);
 
   // console.log("standings", standings);
   // console.log("teams", teams);

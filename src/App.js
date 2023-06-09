@@ -12,6 +12,7 @@ import { NhlStandingsProvider } from "./context/StandingsContext";
 import PlayerDetailPage from "./pages/PlayerDetailPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -19,24 +20,30 @@ function App() {
   return (
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
-        <NHLProvider>
-          <NhlStandingsProvider>
-            <BrowserRouter>
-              <div>
-                <Navbar />
-              </div>
-              <Flex>
-                <Routes>
-                  <Route path="/" element={<SignupPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/home" element={<HomePage />} />
-                  <Route path={"/:id"} element={<TeamDetailPage />} />
-                  <Route path={"/people/:id"} element={<PlayerDetailPage />} />
-                </Routes>
-              </Flex>
-            </BrowserRouter>
-          </NhlStandingsProvider>
-        </NHLProvider>
+        <AuthContextProvider>
+          <NHLProvider>
+            <NhlStandingsProvider>
+              <BrowserRouter>
+                <div>
+                  <Navbar />
+                </div>
+
+                <Flex>
+                  <Routes>
+                    <Route path="/" element={<SignupPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path={"/:id"} element={<TeamDetailPage />} />
+                    <Route
+                      path={"/people/:id"}
+                      element={<PlayerDetailPage />}
+                    />
+                  </Routes>
+                </Flex>
+              </BrowserRouter>
+            </NhlStandingsProvider>
+          </NHLProvider>
+        </AuthContextProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );
