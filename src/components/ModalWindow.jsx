@@ -9,22 +9,44 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
+import { useUserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-function ModalWindow({ isOpen, onClose, btnName, text, url }) {
+function ModalWindow({ isOpen, onClose }) {
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      // console.log(error.message);
+    }
+  };
+
   return (
     <>
       <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Here You can find informations about You</ModalHeader>
+          <ModalHeader>Your Profile</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <a href={url}>{text}</a>
+            <h1>
+              You're logged in with email:{" "}
+              <span style={{ fontWeight: "bold" }}>{user.email}</span>
+            </h1>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button
+              isDisabled={!user}
+              colorScheme="blue"
+              mr={3}
+              onClick={handleLogout}
+            >
+              Log out
             </Button>
           </ModalFooter>
         </ModalContent>
