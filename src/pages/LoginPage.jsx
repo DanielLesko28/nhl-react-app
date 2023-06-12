@@ -1,73 +1,88 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/AuthContext";
+import { Alert, Box, Button, Center, Heading, Input } from "@chakra-ui/react";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { logIn } = useUserAuth();
+  const navigate = useNavigate();
 
-  const onLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        navigate("/home");
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+  const handleSubmit = async (e) => {
+    setError("");
+    try {
+      await logIn(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "An error occurred.");
+    }
   };
 
   return (
-    <>
-      <main>
-        <section>
-          <div>
-            <p> FocusApp </p>
+    <Box w="100%">
+      <Center>
+        <Box w="600px" border="1px solid black" m="5" p="6">
+          <Center>
+            <Heading mt="2"> NHL App Login</Heading>
+          </Center>
+          <Center>
+            <Box my="3">{error && <Alert status="error">{error}</Alert>}</Box>
+          </Center>
+          <Center>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              style={{ width: "80%" }}
+            >
+              <Input
+                mt="4"
+                my="2"
+                type="email"
+                placeholder="Email address"
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-            <form>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+              <Input
+                my="2"
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <button onClick={onLogin}>Login</button>
-              </div>
+              <Center>
+                <Button
+                  colorScheme="blue"
+                  _hover={{ bg: "deepskyblue" }}
+                  m="2"
+                  onClick={handleSubmit}
+                >
+                  Log In
+                </Button>
+              </Center>
             </form>
+          </Center>
 
-            <p className="text-sm text-white text-center">
-              No account yet? <NavLink to="/signup">Sign up</NavLink>
-            </p>
-          </div>
-        </section>
-      </main>
-    </>
+          <Center>
+            <Box>
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                style={{
+                  fontWeight: "bold",
+                  color: "navy",
+                  textDecoration: "underline",
+                }}
+              >
+                Sign up
+              </Link>
+            </Box>
+          </Center>
+        </Box>
+      </Center>
+    </Box>
   );
 };
 

@@ -4,7 +4,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
 import TeamDetailPage from "./pages/TeamDetailPage";
 import HomePage from "./pages/HomePage";
 import { NHLProvider } from "./context/TeamsContext";
@@ -12,7 +11,9 @@ import { NhlStandingsProvider } from "./context/StandingsContext";
 import PlayerDetailPage from "./pages/PlayerDetailPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import { AuthContextProvider } from "./context/AuthContext";
+import { UserAuthContextProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
 
 const queryClient = new QueryClient();
 
@@ -20,30 +21,46 @@ function App() {
   return (
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
-        <AuthContextProvider>
+        <UserAuthContextProvider>
           <NHLProvider>
             <NhlStandingsProvider>
               <BrowserRouter>
-                <div>
-                  <Navbar />
-                </div>
-
-                <Flex>
-                  <Routes>
-                    <Route path="/" element={<SignupPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/home" element={<HomePage />} />
-                    <Route path={"/:id"} element={<TeamDetailPage />} />
-                    <Route
-                      path={"/people/:id"}
-                      element={<PlayerDetailPage />}
-                    />
-                  </Routes>
-                </Flex>
+                <Layout>
+                  <Flex>
+                    <Routes>
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/signup" element={<SignupPage />} />
+                      <Route
+                        path="/"
+                        element={
+                          <ProtectedRoute>
+                            <HomePage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path={"/:id"}
+                        element={
+                          <ProtectedRoute>
+                            <TeamDetailPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path={"/people/:id"}
+                        element={
+                          <ProtectedRoute>
+                            <PlayerDetailPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                    </Routes>
+                  </Flex>
+                </Layout>
               </BrowserRouter>
             </NhlStandingsProvider>
           </NHLProvider>
-        </AuthContextProvider>
+        </UserAuthContextProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );

@@ -1,93 +1,88 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Box, Button, Heading, Input, Text, useRadio } from "@chakra-ui/react";
-import { UserAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert, Box, Button, Center, Heading, Input } from "@chakra-ui/react";
+import { useUserAuth } from "../context/AuthContext";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { createUser } = UserAuth();
-  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const { signUp } = useUserAuth();
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await createUser(email, password);
-      navigate("/home");
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
+      await signUp(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  console.log("UserAuth", UserAuth);
-
   return (
-    <Box w="100%" display="flex" justifyContent="center">
-      <Box
-        borderRadius="md"
-        w="20rem"
-        border="1px solid black"
-        m={5}
-        p={8}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-      >
-        <Heading mb={4}> NHL App </Heading>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
-        >
-          <Input
-            w="100%"
-            p={5}
-            my={2}
-            type="email"
-            label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email address"
-          />
+    <Box w="100%">
+      <Center>
+        <Box w="600px" border="1px solid black" m="5" p="6">
+          <Center>
+            <Heading mt="2">Create NHL App account</Heading>
+          </Center>
+          <Center>
+            <Box my="3">{error && <Alert status="error">{error}</Alert>}</Box>
+          </Center>
+          <Center>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              style={{ width: "80%" }}
+            >
+              <Input
+                mt="4"
+                my="2"
+                type="email"
+                placeholder="Email address"
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-          <Input
-            p={5}
-            my={2}
-            type="password"
-            label="Create password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
-          />
+              <Input
+                my="2"
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-          <Button
-            width="80%"
-            alignSelf="center"
-            my={4}
-            type="submit"
-            // onClick={onSubmit}
-            backgroundColor="blue.400"
-            color="white"
-            _hover={{ backgroundColor: "blue.300" }}
-          >
-            Sign up
-          </Button>
-        </form>
+              <Center>
+                <Button
+                  colorScheme="blue"
+                  _hover={{ bg: "deepskyblue" }}
+                  m="2"
+                  onClick={handleSubmit}
+                >
+                  Sign up
+                </Button>
+              </Center>
+            </form>
+          </Center>
 
-        <Text>
-          Already have an account?{" "}
-          <NavLink
-            to="/login"
-            style={{ textDecoration: "underline", color: "blue" }}
-          >
-            Log in
-          </NavLink>
-        </Text>
-      </Box>
+          <Center>
+            <Box>
+              Already have an account?{" "}
+              <Link
+                to="/"
+                style={{
+                  fontWeight: "bold",
+                  color: "navy",
+                  textDecoration: "underline",
+                }}
+              >
+                Log in
+              </Link>
+            </Box>
+          </Center>
+        </Box>
+      </Center>
     </Box>
   );
 };

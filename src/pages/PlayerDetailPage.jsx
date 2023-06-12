@@ -32,12 +32,6 @@ const PlayerDetailPage = () => {
 
   const playerStatistics = playerStats?.stats?.[0]?.splits?.[0]?.stat;
 
-  //   const stats = playerStats?.stats;
-  //   const splits = stats?.[0]?.splits;
-  //   const stat = splits?.[0]?.stat;
-
-  console.log("playerStatistics", playerStatistics);
-
   return (
     <Box
       w="100%"

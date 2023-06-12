@@ -2,45 +2,47 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 
-const UserContext = createContext();
+const userAuthContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const signIn = (email, password) => {
+  function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const logout = () => {
+  }
+  function signUp(email, password) {
+    return createUserWithEmailAndPassword(auth, email, password);
+  }
+  function logOut() {
     return signOut(auth);
-  };
+  }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+      setUser(currentuser);
+      if (currentuser !== user) {
+        setUser(currentuser);
+      }
     });
+
     return () => {
       unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn }}>
+    <userAuthContext.Provider value={{ user, logIn, signUp, logOut }}>
       {children}
-    </UserContext.Provider>
+    </userAuthContext.Provider>
   );
-};
+}
 
-export const UserAuth = () => {
-  return useContext(UserContext);
-};
+export function useUserAuth() {
+  return useContext(userAuthContext);
+}
