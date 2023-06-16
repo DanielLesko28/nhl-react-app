@@ -38,7 +38,7 @@ const Navbar = () => {
           >
             <AiOutlineMenu color="white" size={25} />
           </Button>
-          <Link to="/home">
+          <Link to="/">
             <Heading color="white">NHL</Heading>
           </Link>
         </Flex>
