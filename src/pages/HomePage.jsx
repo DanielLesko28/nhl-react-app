@@ -16,11 +16,11 @@ const HomePage = () => {
   }
 
   if (isError) {
-    return <div>Error occurred while fetching standings.</div>;
+    return <Center>Error occurred while fetching standings.</Center>;
   }
 
   if (!Array.isArray(standings)) {
-    return <div>Invalid standings data.</div>;
+    return <Center>Invalid standings data.</Center>;
   }
 
   const [newStandings] = standings;

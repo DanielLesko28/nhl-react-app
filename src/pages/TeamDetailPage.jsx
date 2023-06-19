@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Center } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { NHLContext } from "../context/TeamsContext";
 import RostersTable from "../components/RostersTable";
+import PositionsFilter from "../components/PositionsFilter";
 
 const TeamDetailPage = () => {
   const { id } = useParams();
@@ -25,28 +26,61 @@ const TeamDetailPage = () => {
     isError,
   } = useQuery(["roster", id], fetchRoster);
 
-  const goalies =
-    roster && roster.filter((player) => player.position.name === "Goalie");
-  const defensemen =
-    roster && roster.filter((player) => player.position.name === "Defenseman");
-  const attackers =
+  console.log("roster", roster);
+
+  const [selectedPosition, setSelectedPosition] = useState("");
+
+  const handlePositionSelect = (position) => {
+    setSelectedPosition(position);
+  };
+
+  const filteredRoster =
     roster &&
-    roster.filter(
-      (player) =>
-        player.position.name !== "Goalie" &&
-        player.position.name !== "Defenseman"
-    );
+    roster.filter((player) => {
+      if (selectedPosition === "") {
+        return true;
+      } else {
+        return player.position.name === selectedPosition;
+      }
+    });
 
   if (!team) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          width: "100%",
+          marginTop: "2rem",
+        }}
+      >
+        <Center>Loading...</Center>;
+      </div>
+    );
   }
 
   if (isLoading) {
-    return <div>Loading roster...</div>;
+    return (
+      <div
+        style={{
+          width: "100%",
+          marginTop: "2rem",
+        }}
+      >
+        <Center>Loading roster...</Center>;
+      </div>
+    );
   }
 
   if (isError) {
-    return <div>Error fetching roster</div>;
+    return (
+      <div
+        style={{
+          width: "100%",
+          marginTop: "2rem",
+        }}
+      >
+        <Center>Error fetching roster</Center>;
+      </div>
+    );
   }
 
   return (
@@ -67,17 +101,9 @@ const TeamDetailPage = () => {
           {team.venue.name}
         </h1>
 
-        <RostersTable positionHeader="Goalies" data={goalies} />
-        <RostersTable
-          positionHeader="Defensemen"
-          data={defensemen}
-          style={{ marginTop: "3rem" }}
-        />
-        <RostersTable
-          positionHeader="Attackers"
-          data={attackers}
-          style={{ marginTop: "3rem" }}
-        />
+        <PositionsFilter onSelectPosition={handlePositionSelect} />
+
+        <RostersTable data={filteredRoster} />
       </Center>
     </div>
   );

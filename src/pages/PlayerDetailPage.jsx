@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -8,24 +8,31 @@ import PlayerStatsTable from "../components/PlayerStatsTable";
 const PlayerDetailPage = () => {
   const { id } = useParams();
 
-  // Player informations
   const {
     data: player,
     isLoading,
     isError,
   } = useQuery(["player", id], () => fetchPlayerDetails(id));
 
-  // Player statistics
   const { data: playerStats } = useQuery(["playerStats", id], () =>
     fetchPlayerStats(id)
   );
 
   if (isLoading) {
-    return <div>Loading player details...</div>;
+    return (
+      <div
+        style={{
+          width: "100%",
+          marginTop: "2rem",
+        }}
+      >
+        <Center>Loading player details...</Center>;
+      </div>
+    );
   }
 
   if (isError) {
-    return <div>Error fetching player details</div>;
+    return <Center>Error fetching player details</Center>;
   }
 
   const birthDate = new Date(player.birthDate).toLocaleDateString();

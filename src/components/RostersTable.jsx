@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 const RostersTable = ({ positionHeader, data }) => {
   return (
     <TableContainer marginTop={5} w="80%" p={15} margin={10}>
-      <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
+      {/* <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
         {positionHeader}:
-      </h1>
+      </h1> */}
 
       <Table variant="simple">
         <Thead style={{ backgroundColor: "DodgerBlue" }}>
