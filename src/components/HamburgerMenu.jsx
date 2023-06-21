@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { Text } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  Box,
+  AccordionIcon,
+  AccordionPanel,
+  Text,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import {
@@ -39,14 +47,31 @@ const HamburgerMenu = ({ onClose, sideMenu }) => {
       </h2>
       <nav>
         <ul style={listStyle}>
-          {nhlTeams.length > 0 &&
-            sortedTeams.map((team, index) => (
-              <Link to={`/${team.id}`} key={index} onClick={onClose}>
-                <Text p="2" color="black">
-                  {team.name}
-                </Text>
-              </Link>
-            ))}
+          <Accordion allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    Teams
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              {nhlTeams.length > 0 &&
+                sortedTeams.map((team, index) => (
+                  <Link to={`/${team.id}`} key={index} onClick={onClose}>
+                    <AccordionPanel p="2" color="black">
+                      {team.name}
+                    </AccordionPanel>
+                  </Link>
+                ))}
+            </AccordionItem>
+          </Accordion>
+          <Box marginLeft="1rem" marginTop="0.5rem">
+            <Link to="/awards" onClick={onClose}>
+              <Text>Awards</Text>
+            </Link>
+          </Box>
         </ul>
       </nav>
     </div>

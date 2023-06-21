@@ -5,7 +5,7 @@ import { NhlAwardsContext } from "../context/AwardContext";
 const AwardsPage = () => {
   const { awards } = useContext(NhlAwardsContext);
 
-  console.log("awards", awards.awards);
+  console.log("awards", awards?.awards);
 
   return (
     <Box w="100%">
