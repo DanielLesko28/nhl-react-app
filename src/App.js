@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import AwardsPage from "./pages/AwardsPage";
 import { NhlAwardsProvider } from "./context/AwardContext";
+import AwardDetailPage from "./pages/AwardDetailPage";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +63,14 @@ function App() {
                           element={
                             <ProtectedRoute>
                               <AwardsPage />
+                            </ProtectedRoute>
+                          }
+                        />
+                        <Route
+                          path={"/awards/:name"}
+                          element={
+                            <ProtectedRoute>
+                              <AwardDetailPage />
                             </ProtectedRoute>
                           }
                         />
