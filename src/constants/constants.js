@@ -3,6 +3,7 @@ export const menuStyle = {
   top: 0,
   left: 0,
   width: "200px",
+  height: "100vh",
   backgroundColor: "#fff",
   zIndex: 10,
   transition: "transform 0.3s ease-in",

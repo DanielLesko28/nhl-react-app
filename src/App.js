@@ -14,6 +14,8 @@ import LoginPage from "./pages/LoginPage";
 import { UserAuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
+import AwardsPage from "./pages/AwardsPage";
+import { NhlAwardsProvider } from "./context/AwardContext";
 
 const queryClient = new QueryClient();
 
@@ -24,40 +26,50 @@ function App() {
         <UserAuthContextProvider>
           <NHLProvider>
             <NhlStandingsProvider>
-              <BrowserRouter>
-                <Layout>
-                  <Flex>
-                    <Routes>
-                      <Route path="/login" element={<LoginPage />} />
-                      <Route path="/signup" element={<SignupPage />} />
-                      <Route
-                        path="/"
-                        element={
-                          <ProtectedRoute>
-                            <HomePage />
-                          </ProtectedRoute>
-                        }
-                      />
-                      <Route
-                        path={"/:id"}
-                        element={
-                          <ProtectedRoute>
-                            <TeamDetailPage />
-                          </ProtectedRoute>
-                        }
-                      />
-                      <Route
-                        path={"/people/:id"}
-                        element={
-                          <ProtectedRoute>
-                            <PlayerDetailPage />
-                          </ProtectedRoute>
-                        }
-                      />
-                    </Routes>
-                  </Flex>
-                </Layout>
-              </BrowserRouter>
+              <NhlAwardsProvider>
+                <BrowserRouter>
+                  <Layout>
+                    <Flex>
+                      <Routes>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/signup" element={<SignupPage />} />
+                        <Route
+                          path="/"
+                          element={
+                            <ProtectedRoute>
+                              <HomePage />
+                            </ProtectedRoute>
+                          }
+                        />
+                        <Route
+                          path={"/:id"}
+                          element={
+                            <ProtectedRoute>
+                              <TeamDetailPage />
+                            </ProtectedRoute>
+                          }
+                        />
+                        <Route
+                          path={"/people/:id"}
+                          element={
+                            <ProtectedRoute>
+                              <PlayerDetailPage />
+                            </ProtectedRoute>
+                          }
+                        />
+                        <Route
+                          path={"/awards"}
+                          element={
+                            <ProtectedRoute>
+                              <AwardsPage />
+                            </ProtectedRoute>
+                          }
+                        />
+                      </Routes>
+                    </Flex>
+                  </Layout>
+                </BrowserRouter>
+              </NhlAwardsProvider>
             </NhlStandingsProvider>
           </NHLProvider>
         </UserAuthContextProvider>
