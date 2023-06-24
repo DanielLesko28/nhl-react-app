@@ -6,9 +6,9 @@ import {
   Stack,
   Heading,
   Text,
-  Divider,
   CardFooter,
   Button,
+  Center,
 } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -23,13 +23,20 @@ const AwardCard = ({ imgUrl, awardName, awardDescription, awardLink }) => {
     <Box>
       <Card maxW="sm">
         <CardBody>
-          <Image src={imgUrl} alt={awardName} borderRadius="lg" />
+          <Center>
+            <Image
+              src={imgUrl}
+              alt={awardName}
+              borderRadius="lg"
+              maxW="200px"
+            />
+          </Center>
           <Stack mt="6" spacing="3">
             <Heading size="md">{awardName}</Heading>
             <Text>{truncatedDescription}</Text>
           </Stack>
         </CardBody>
-        <Divider />
+
         <CardFooter>
           <Box display="flex" justifyContent="center" w="100%">
             <Link to={`/awards/${awardLink}`}>

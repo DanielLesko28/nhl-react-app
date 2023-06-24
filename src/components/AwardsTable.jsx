@@ -8,18 +8,25 @@ const AwardsTable = () => {
 
   const newAwards = awards?.awards;
 
-  console.log("awards", newAwards);
+  // console.log("awards", newAwards);
+
+  const totallyNewAwards = newAwards.map((award) => {
+    return { ...award, id: award.link.split("/").pop() };
+  });
+
+  console.log("another try", totallyNewAwards);
+
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap={7} marginTop="2rem">
-      {newAwards &&
-        newAwards.map((award) => {
+      {totallyNewAwards &&
+        totallyNewAwards.map((award) => {
           return (
             <Box>
               <AwardCard
                 imgUrl={award.imageUrl}
                 awardName={award.name}
                 awardDescription={award.description}
-                awardLink={award.name}
+                awardLink={award.id}
               />
             </Box>
           );

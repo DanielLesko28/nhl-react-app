@@ -67,7 +67,7 @@ function App() {
                           }
                         />
                         <Route
-                          path={"/awards/:name"}
+                          path={"/awards/:id"}
                           element={
                             <ProtectedRoute>
                               <AwardDetailPage />
