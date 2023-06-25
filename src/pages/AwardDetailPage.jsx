@@ -1,7 +1,8 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Text, Image } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { NhlAwardsContext } from "../context/AwardContext";
+import { useQuery } from "react-query";
 
 const AwardDetailPage = () => {
   const { id } = useParams();
@@ -16,15 +17,37 @@ const AwardDetailPage = () => {
 
   console.log("totally new awards", totallyNewAwards);
 
-  const award =
-    totallyNewAwards &&
-    totallyNewAwards.find((singleAward) => singleAward.id === parseInt(id));
+  const fetchAward = async () => {
+    const response = await fetch(
+      `https://statsapi.web.nhl.com/api/v1/awards/${id}`
+    );
+    const data = await response.json();
+    return data;
+  };
 
-  console.log("this should be award", award);
+  const {
+    data: award,
+    isLoading,
+    isError,
+  } = useQuery(["award", id], fetchAward);
+
+  console.log("data about award", award);
+
+  const awardToDisplay = award?.awards;
+
+  console.log("awardToDisplay", awardToDisplay);
 
   return (
     <Box w="100%">
-      <Center>{id}</Center>
+      <Center>
+        {awardToDisplay &&
+          awardToDisplay.map((award) => (
+            <Box>
+              <Text>{award.name}</Text>
+              <Image src={award.imageUrl} h="300px" w="250px" />
+            </Box>
+          ))}
+      </Center>
     </Box>
   );
 };
