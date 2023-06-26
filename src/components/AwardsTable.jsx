@@ -11,15 +11,21 @@ const AwardsTable = () => {
 
   const newAwards = awards?.awards;
 
+  const totallyNewAwards = newAwards.map((award) => {
+    return { ...award, id: award.link.split("/").pop() };
+  });
+
   const indexOfLastAward = currentPage * awardsPerPage;
   const indexOfFirstAward = indexOfLastAward - awardsPerPage;
-  const currentAwards = newAwards
-    ? newAwards.slice(indexOfFirstAward, indexOfLastAward)
+  const currentAwards = totallyNewAwards
+    ? totallyNewAwards.slice(indexOfFirstAward, indexOfLastAward)
     : [];
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  console.log("currentAwards", currentAwards);
 
   return (
     <div>
