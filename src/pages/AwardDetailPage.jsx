@@ -1,8 +1,9 @@
-import { Box, Center, Text, Image } from "@chakra-ui/react";
+import { Box, Center, Text, Image, Heading } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { NhlAwardsContext } from "../context/AwardContext";
 import { useQuery } from "react-query";
+import AwardDetailTab from "../components/AwardDetailTab";
 
 const AwardDetailPage = () => {
   const { id } = useParams();
@@ -42,9 +43,26 @@ const AwardDetailPage = () => {
       <Center>
         {awardToDisplay &&
           awardToDisplay.map((award) => (
-            <Box>
-              <Text>{award.name}</Text>
-              <Image src={award.imageUrl} h="300px" w="250px" />
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Heading size="lg" marginBottom="1rem" marginTop="2rem">
+                {award.name}
+              </Heading>
+              <Image
+                src={award.imageUrl}
+                h="300px"
+                w="200px"
+                marginBottom="2rem"
+              />
+              <Text padding="1.5rem" alignSelf="flex-start">
+                This trophy goes to{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  {award.recipientType}
+                </span>
+              </Text>
+              <AwardDetailTab
+                historyText={award.history}
+                cupText={award.description}
+              />
             </Box>
           ))}
       </Center>

@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const AwardCard = ({ imgUrl, awardName, awardDescription, awardLink }) => {
   const truncatedDescription =
-    awardDescription && awardDescription.length > 300
+    awardDescription && awardDescription.length > 250
       ? awardDescription.substring(0, 300) + "..."
       : awardDescription;
 
